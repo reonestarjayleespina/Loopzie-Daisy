@@ -53,7 +53,7 @@ const togglePattern = (product) => {
 <template>
   <div class="app-shell">
     <header class="site-header">
-      <div class="brand">Loopzie Daisy 🌼</div>
+      <h1 class="brand">Loopzie Daisy</h1>
       <img class="brand-logo" :src="logoImage" alt="Loopzie Daisy logo" />
     </header>
 
@@ -123,20 +123,23 @@ const togglePattern = (product) => {
   padding: 1rem 1.5rem;
   background: var(--color-purple);
   color: #ffffff;
+  width: 100%;
 }
 
 .brand {
   font-weight: 700;
   font-size: 1.1rem;
   letter-spacing: 0.02em;
+  margin: 0;
 }
 
 .brand-logo {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--color-yellow);
+  flex-shrink: 0;
 }
 
 .site-nav {
@@ -274,8 +277,7 @@ const togglePattern = (product) => {
 
 @media (max-width: 720px) {
   .site-header {
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .site-nav {
