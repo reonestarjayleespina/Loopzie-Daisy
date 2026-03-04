@@ -1,44 +1,28 @@
-# .
+Loopzie Daisy
 
-This template should help get you started developing with Vue 3 in Vite.
+The official digital product catalog and pattern viewer for Loopzie Daisy, a handmade crochet small business based in Butuan City. 
 
-## Recommended IDE Setup
+This application allows users to browse our seasonal crochet products, check current pricing (SRP), and view step-by-step digital patterns for each item. 
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[Follow Loopzie Daisy on Facebook](https://www.facebook.com/loopsziedaisy)
 
-## Recommended Browser Setup
+Features
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Interactive Product Grid: Showcases signature items including Crochet Tulips, Sunny Sunflowers, Classic Daisies, and Romantic Roses.
+Integrated Pattern Viewer: Each product features a toggleable section revealing the exact crochet pattern used to make it.
+Custom Design System: Built with a fully responsive layout utilizing a custom CSS variables theme (Cream, Royal Purple, and Daisy Yellow).
+Social Integration: Direct links to the brand's official Facebook page for easy customer access.
 
-## Customize configuration
+Tech Stack
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Framework: Vue 3 (Composition API)
+Build Tool: Vite
+Styling: Custom CSS3 with Flexbox/Grid
 
-## Project Setup
+How to Run Locally
 
-```sh
-npm install
-```
+If you want to run this project on your own machine, follow these steps:
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/reonestarjayleespina/Loopzie-Daisy.git](https://github.com/reonestarjayleespina/Loopzie-Daisy.git)
