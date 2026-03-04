@@ -11,7 +11,8 @@ const products = ref([
     id: 1,
     name: 'Tulip 🌷',
     srp: '₱200',
-    pattern: 'Petals: Chain 13, sc in 2nd ch, hdc, dc x8. Repeat x6.',
+    pattern:
+      'Round 1: sc 6x in the magic circle. Round 2: Inc in every sc. (12) Round 3: Inc, sc. (18) Round 4: Inc, sc 2x (24) Round 5: Inc, sc 3x (30) Round 6: Inc, sc 4x (36) Round 7: Inc, sc 5x (42) Round 8-15: Sc in every stitch. (42)',
     image: tulipImage,
     imageClass: 'img-tulip',
     showPattern: false,
