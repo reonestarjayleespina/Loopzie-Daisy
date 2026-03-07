@@ -1,5 +1,7 @@
 <template>
   <section class="catalog">
+    <CarouselSlider />
+
     <div class="catalog-header">
       <h1>Catalog</h1>
       <p>Discover seasonal bouquets, gift bundles, and curated arrangements.</p>
@@ -23,6 +25,10 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import CarouselSlider from '@/components/CarouselSlider.vue'
+</script>
 
 <style scoped>
 .catalog-header h1 {

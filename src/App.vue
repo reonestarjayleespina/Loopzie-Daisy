@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import CarouselSlider from './components/CarouselSlider.vue'
 import tulipImage from './assets/crochet tulip.jpg'
 import sunflowerImage from './assets/crochet sunflower.jpg'
 import daisyImage from './assets/crochet daisy.jpg'
@@ -59,17 +60,9 @@ const togglePattern = (product) => {
     </header>
 
     <main class="site-main">
-      <section class="hero">
-        <div class="hero-text">
-          <h1>Handmade Blooms & Patterns</h1>
-          <p class="lede">
-            Discover crochet florals crafted with care, each paired with a pattern so you can make
-            your own bouquet.
-          </p>
-        </div>
-      </section>
-
       <section class="catalog">
+        <CarouselSlider />
+
         <div class="catalog-header">
           <h2>Crochet Product Catalog</h2>
           <p>Four signature blooms with patterns you can recreate at home.</p>
@@ -111,6 +104,7 @@ const togglePattern = (product) => {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .site-header {
@@ -161,7 +155,7 @@ const togglePattern = (product) => {
 
 .site-main {
   flex: 1;
-  padding: 2.5rem 1.5rem 3rem;
+  padding: 0;
 }
 
 .site-footer {
@@ -208,6 +202,10 @@ const togglePattern = (product) => {
   margin-bottom: 1.5rem;
 }
 
+.catalog-header {
+  padding: 2.5rem 1.5rem 0;
+}
+
 .catalog-header h2 {
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   margin-bottom: 0.5rem;
@@ -218,6 +216,7 @@ const togglePattern = (product) => {
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-top: 2rem;
+  padding: 0 1.5rem 3rem;
 }
 
 .product-card {
