@@ -1,17 +1,24 @@
 <script setup>
 import { ref } from 'vue'
 import CarouselSlider from './components/CarouselSlider.vue'
+import ProductModal from './components/ProductModal.vue'
 import tulipImage from './assets/crochet tulip.jpg'
 import sunflowerImage from './assets/crochet sunflower.jpg'
 import daisyImage from './assets/crochet daisy.jpg'
 import roseImage from './assets/crochet rose.jpg'
 import logoImage from './assets/LOOPZIE DAISY LOGO.png'
 
+const selectedProduct = ref(null)
+const showModal = ref(false)
+
 const products = ref([
   {
     id: 1,
     name: 'Tulip 🌷',
     srp: '₱200',
+    difficulty: 2,
+    description: 'A beautiful handmade crochet tulip with a classic shape and vibrant colors.',
+    materials: ['Acrylic Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill', 'Stitch Marker'],
     pattern:
       'Round 1: sc 6x in the magic circle. Round 2: Inc in every sc. (12) Round 3: Inc, sc. (18) Round 4: Inc, sc 2x (24) Round 5: Inc, sc 3x (30) Round 6: Inc, sc 4x (36) Round 7: Inc, sc 5x (42) Round 8-15: Sc in every stitch. (42)',
     image: tulipImage,
@@ -22,6 +29,9 @@ const products = ref([
     id: 2,
     name: 'Sunflower 🌻',
     srp: '₱250',
+    difficulty: 3,
+    description: 'A cheerful sunflower with layered petals that bring warmth and joy to any space.',
+    materials: ['Yellow Acrylic Yarn', 'Brown Acrylic Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill'],
     pattern: 'Center: Brown 6sc in MR. Petals: Yellow ch 5, tr, ch 3, slst.',
     image: sunflowerImage,
     imageClass: 'img-sunflower',
@@ -31,6 +41,10 @@ const products = ref([
     id: 3,
     name: 'Daisy 🌼',
     srp: '₱150',
+    difficulty: 1,
+    description:
+      'A delicate daisy perfect for beginners. Simple yet elegant with white petals and yellow center.',
+    materials: ['White Yarn', 'Yellow Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill'],
     pattern: 'Center: Yellow 6sc. Petals: White ch 6, dc, hdc, sc.',
     image: daisyImage,
     imageClass: 'img-daisy',
@@ -40,6 +54,10 @@ const products = ref([
     id: 4,
     name: 'Rose 🌹',
     srp: '₱300',
+    difficulty: 4,
+    description:
+      'An intricate rose with rolled petals that capture the essence of a blooming flower.',
+    materials: ['Red/Pink Yarn', 'Green Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill', 'Floral Wire'],
     pattern: 'Base: Chain 50. DC row. Scallop row. Roll tightly.',
     image: roseImage,
     imageClass: 'img-rose',
@@ -49,6 +67,23 @@ const products = ref([
 
 const togglePattern = (product) => {
   product.showPattern = !product.showPattern
+}
+
+const openModal = (product) => {
+  selectedProduct.value = product
+  showModal.value = true
+}
+
+const closeModal = () => {
+  showModal.value = false
+  selectedProduct.value = null
+}
+
+const handleOrder = () => {
+  // Could integrate with WhatsApp, email form, or other contact method
+  const productName = encodeURIComponent(selectedProduct.value.name)
+  window.open(`https://www.facebook.com/loopsziedaisy`, '_blank')
+  closeModal()
 }
 </script>
 
@@ -68,14 +103,19 @@ const togglePattern = (product) => {
           <p>Four signature blooms with patterns you can recreate at home.</p>
         </div>
         <div class="catalog-grid">
-          <article v-for="product in products" :key="product.id" class="product-card">
+          <article
+            v-for="product in products"
+            :key="product.id"
+            class="product-card"
+            @click="openModal(product)"
+          >
             <div class="product-image">
               <img :src="product.image" :alt="product.name" :class="product.imageClass" />
             </div>
             <div class="product-content">
               <h3>{{ product.name }}</h3>
               <p class="product-srp">SRP: {{ product.srp }}</p>
-              <button class="primary-btn" type="button" @click="togglePattern(product)">
+              <button class="primary-btn" type="button" @click.stop="togglePattern(product)">
                 {{ product.showPattern ? 'Hide Pattern' : 'Show Pattern' }}
               </button>
               <p v-if="product.showPattern" class="product-pattern">{{ product.pattern }}</p>
@@ -96,6 +136,14 @@ const togglePattern = (product) => {
         Follow us on Facebook @loopsziedaisy
       </a>
     </footer>
+
+    <ProductModal
+      v-if="selectedProduct"
+      :product="selectedProduct"
+      :isOpen="showModal"
+      @close="closeModal"
+      @order="handleOrder"
+    />
   </div>
 </template>
 
@@ -226,6 +274,14 @@ const togglePattern = (product) => {
   box-shadow: 0 14px 26px rgba(255, 217, 61, 0.35);
   overflow: hidden;
   display: grid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(89, 13, 130, 0.25);
+  border-color: var(--color-yellow);
 }
 
 .product-image {
