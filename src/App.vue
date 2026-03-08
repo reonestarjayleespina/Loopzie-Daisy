@@ -20,7 +20,7 @@ const products = ref([
     description: 'A beautiful handmade crochet tulip with a classic shape and vibrant colors.',
     materials: ['Acrylic Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill', 'Stitch Marker'],
     pattern:
-      'Round 1: sc 6x in the magic circle. Round 2: Inc in every sc. (12) Round 3: Inc, sc. (18) Round 4: Inc, sc 2x (24) Round 5: Inc, sc 3x (30) Round 6: Inc, sc 4x (36) Round 7: Inc, sc 5x (42) Round 8-15: Sc in every stitch. (42)',
+      '1 row - mc 6sc (6sc)<br>2 row - 2 sc each (12sc)<br>3 row - 1 sc 1 in (18sc)<br>4 row - 1 in 1sc 1sc (24)<br>5 row - sc each (24)<br>6 row - 1sc 1sc 1sc 1in (30)<br>7-12 - 1sc each',
     image: tulipImage,
     imageClass: 'img-tulip',
     showPattern: false,
@@ -32,7 +32,8 @@ const products = ref([
     difficulty: 3,
     description: 'A cheerful sunflower with layered petals that bring warmth and joy to any space.',
     materials: ['Yellow Acrylic Yarn', 'Brown Acrylic Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill'],
-    pattern: 'Center: Brown 6sc in MR. Petals: Yellow ch 5, tr, ch 3, slst.',
+    pattern:
+      '<strong>SUNFLOWER CENTER (Make 2)</strong><br>1 row - mc 6sc (6sc)<br>2 row - 2 sc each (12sc)<br>3 row - 1sc 1in (18sc)<br>4 row - 1sc 1sc 1in (24)<br>5 row - 1sc 1sc 1sc 1in (30)<br>6 row - 1sc 1sc 1sc 1sc 1in (36)<br><br><strong>PETALS</strong><br>sequence - ch2, (1dc 1tr) in 1st, ch3 picot, (1tr 1dc) in 1st, ch2, sl st in 1st',
     image: sunflowerImage,
     imageClass: 'img-sunflower',
     showPattern: false,

@@ -61,7 +61,7 @@
 
             <div class="product-pattern">
               <span class="label">Crochet Pattern:</span>
-              <p class="pattern-text">{{ product.pattern }}</p>
+              <p class="pattern-text" v-html="product.pattern"></p>
             </div>
 
             <button class="order-btn" @click="handleOrder">
