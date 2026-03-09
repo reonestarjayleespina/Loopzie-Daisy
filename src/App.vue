@@ -17,7 +17,8 @@ const products = ref([
     name: 'Tulip 🌷',
     srp: '₱200',
     difficulty: 2,
-    description: 'A beautiful handmade crochet tulip with a classic shape and vibrant colors.',
+    description:
+      '<strong>Origin:</strong> Central Asia and Turkey (later made famous by the Netherlands).<br><br><strong>Colors:</strong> Almost every color imaginable, including soft pinks, bright yellows, deep purples, and rich reds.<br><br><strong>Description:</strong> A classic spring bloom symbolizing perfect and deep love. Their elegant, cup-shaped petals bring a sleek and modern feel to any floral arrangement.',
     materials: ['Acrylic Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill', 'Stitch Marker'],
     pattern:
       '1 row - mc 6sc (6sc)<br>2 row - 2 sc each (12sc)<br>3 row - 1 sc 1 in (18sc)<br>4 row - 1 in 1sc 1sc (24)<br>5 row - sc each (24)<br>6 row - 1sc 1sc 1sc 1in (30)<br>7-12 - 1sc each',
@@ -30,7 +31,8 @@ const products = ref([
     name: 'Sunflower 🌻',
     srp: '₱250',
     difficulty: 3,
-    description: 'A cheerful sunflower with layered petals that bring warmth and joy to any space.',
+    description:
+      '<strong>Origin:</strong> North and Central America.<br><br><strong>Colors:</strong> Traditionally bright golden-yellow petals with a rich, dark brown center.<br><br><strong>Description:</strong> Known for literally turning their heads to follow the sun, these bold and cheerful blooms represent pure happiness, loyalty, and adoration.',
     materials: ['Yellow Acrylic Yarn', 'Brown Acrylic Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill'],
     pattern:
       '<strong>SUNFLOWER CENTER (Make 2)</strong><br>1 row - mc 6sc (6sc)<br>2 row - 2 sc each (12sc)<br>3 row - 1sc 1in (18sc)<br>4 row - 1sc 1sc 1in (24)<br>5 row - 1sc 1sc 1sc 1in (30)<br>6 row - 1sc 1sc 1sc 1sc 1in (36)<br><br><strong>PETALS</strong><br>sequence - ch2, (1dc 1tr) in 1st, ch3 picot, (1tr 1dc) in 1st, ch2, sl st in 1st',
@@ -44,7 +46,7 @@ const products = ref([
     srp: '₱150',
     difficulty: 1,
     description:
-      'A delicate daisy perfect for beginners. Simple yet elegant with white petals and yellow center.',
+      '<strong>Origin:</strong> Europe and temperate regions of Asia.<br><br><strong>Colors:</strong> Iconic pristine white petals surrounding a sunny yellow center.<br><br><strong>Description:</strong> The namesake of our shop! Daisies are timeless, playful, and incredibly charming. They are the ultimate symbol of innocence, purity, and cheerful new beginnings.',
     materials: ['White Yarn', 'Yellow Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill'],
     pattern: 'Center: Yellow 6sc. Petals: White ch 6, dc, hdc, sc.',
     image: daisyImage,
@@ -57,7 +59,7 @@ const products = ref([
     srp: '₱300',
     difficulty: 4,
     description:
-      'An intricate rose with rolled petals that capture the essence of a blooming flower.',
+      '<strong>Origin:</strong> Primarily Asia, with some species native to North America and Europe.<br><br><strong>Colors:</strong> Famous for deep romantic reds, but also beautifully bloom in pink, white, yellow, and orange.<br><br><strong>Description:</strong> The universal symbol of romance and passion. With their tightly layered, intricate petals, roses bring a touch of timeless elegance and luxury to any bouquet.',
     materials: ['Red/Pink Yarn', 'Green Yarn', 'Crochet Hook (4.5mm)', 'Fiberfill', 'Floral Wire'],
     pattern: 'Base: Chain 50. DC row. Scallop row. Roll tightly.',
     image: roseImage,

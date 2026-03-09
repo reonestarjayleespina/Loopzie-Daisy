@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-container">
+  <div class="carousel-container" @mouseenter="pauseAutoplay" @mouseleave="resumeAutoplay">
     <div class="carousel-wrapper">
       <transition-group name="slide" tag="div" class="carousel-track">
         <div
@@ -8,9 +8,16 @@
           v-show="index === currentIndex"
           class="carousel-slide"
         >
-          <img :src="image" :alt="`Crochet product ${index + 1}`" />
+          <div class="image-wrapper">
+            <img :src="image" :alt="`Crochet product ${index + 1}`" />
+          </div>
         </div>
       </transition-group>
+
+      <!-- Progress bar -->
+      <div class="progress-bar">
+        <div class="progress-fill" :style="{ width: progressWidth + '%' }"></div>
+      </div>
 
       <div class="carousel-dots">
         <button
@@ -80,29 +87,69 @@ const images = [
 ]
 
 const currentIndex = ref(0)
+const progressWidth = ref(0)
+const isPaused = ref(false)
 let autoplayInterval = null
+let progressInterval = null
+
+const AUTOPLAY_DURATION = 4000 // 4 seconds per slide
+const PROGRESS_UPDATE_INTERVAL = 20 // Update progress every 20ms
 
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % images.length
+  progressWidth.value = 0
 }
 
 const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + images.length) % images.length
+  progressWidth.value = 0
 }
 
 const goToSlide = (index) => {
   currentIndex.value = index
+  progressWidth.value = 0
   // Reset autoplay timer when user manually navigates
   if (autoplayInterval) {
     clearInterval(autoplayInterval)
+    clearInterval(progressInterval)
     startAutoplay()
   }
 }
 
+const pauseAutoplay = () => {
+  isPaused.value = true
+  if (autoplayInterval) {
+    clearInterval(autoplayInterval)
+  }
+  if (progressInterval) {
+    clearInterval(progressInterval)
+  }
+}
+
+const resumeAutoplay = () => {
+  isPaused.value = false
+  startAutoplay()
+}
+
 const startAutoplay = () => {
+  progressWidth.value = 0
+
+  // Update progress bar
+  progressInterval = setInterval(() => {
+    if (!isPaused.value) {
+      progressWidth.value += 100 / (AUTOPLAY_DURATION / PROGRESS_UPDATE_INTERVAL)
+      if (progressWidth.value >= 100) {
+        progressWidth.value = 100
+      }
+    }
+  }, PROGRESS_UPDATE_INTERVAL)
+
+  // Change slide
   autoplayInterval = setInterval(() => {
-    nextSlide()
-  }, 3000) // Change slide every 3 seconds
+    if (!isPaused.value) {
+      nextSlide()
+    }
+  }, AUTOPLAY_DURATION)
 }
 
 onMounted(() => {
@@ -112,6 +159,9 @@ onMounted(() => {
 onUnmounted(() => {
   if (autoplayInterval) {
     clearInterval(autoplayInterval)
+  }
+  if (progressInterval) {
+    clearInterval(progressInterval)
   }
 })
 </script>
@@ -129,7 +179,7 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: 100%;
-  background: var(--color-cream);
+  background: radial-gradient(circle at top, #fff8d8 0%, var(--color-cream) 45%, #f6e7ff 100%);
   overflow: hidden;
 }
 
@@ -154,6 +204,25 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
+.image-wrapper {
+  position: relative;
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  animation: kenBurns 4s ease-out forwards;
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .carousel-slide img {
   max-width: 100%;
   max-height: 80vh;
@@ -163,20 +232,54 @@ onUnmounted(() => {
   height: auto;
 }
 
+/* Progress bar */
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(89, 13, 130, 0.14);
+  z-index: 15;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-yellow), #ffe883 55%, var(--color-purple));
+  transition: width 0.05s linear;
+  box-shadow: 0 0 12px rgba(89, 13, 130, 0.25);
+}
+
 /* Slide transitions */
-.slide-enter-active,
+.slide-enter-active {
+  animation: slideInZoom 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
 .slide-leave-active {
-  transition: all 0.6s ease-in-out;
+  animation: slideOutZoom 0.6s ease-in;
 }
 
-.slide-enter-from {
-  opacity: 0;
-  transform: translateX(100%);
+@keyframes slideInZoom {
+  0% {
+    opacity: 0;
+    transform: translateX(100%) scale(0.8) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
 }
 
-.slide-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
+@keyframes slideOutZoom {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%) scale(0.8) rotate(-5deg);
+  }
 }
 
 /* Navigation buttons */
@@ -184,25 +287,31 @@ onUnmounted(() => {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.96);
   border: none;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   z-index: 10;
-  color: #590d82;
+  color: var(--color-purple);
   margin: 0;
+  box-shadow: 0 10px 24px rgba(89, 13, 130, 0.2);
 }
 
 .carousel-btn:hover {
-  background: #ffffff;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--color-yellow);
+  color: var(--color-purple);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 14px 28px rgba(89, 13, 130, 0.25);
+}
+
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .carousel-btn.prev {
@@ -216,34 +325,42 @@ onUnmounted(() => {
 /* Dots navigation */
 .carousel-dots {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 12px;
   z-index: 10;
+  padding: 12px 20px;
+  background: rgba(89, 13, 130, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  position: relative;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 2px solid #ffffff;
-  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.45);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   padding: 0;
 }
 
 .dot:hover {
-  background: rgba(255, 255, 255, 0.7);
-  transform: scale(1.2);
+  background: var(--color-yellow);
+  transform: scale(1.3);
+  border-color: #ffffff;
 }
 
 .dot.active {
-  background: #ffffff;
-  width: 30px;
-  border-radius: 6px;
+  background: var(--color-yellow);
+  width: 35px;
+  border-radius: 8px;
+  border-color: var(--color-purple);
+  box-shadow: 0 0 15px rgba(89, 13, 130, 0.35);
 }
 
 /* Responsive adjustments */
@@ -257,8 +374,8 @@ onUnmounted(() => {
   }
 
   .carousel-btn {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
 
   .carousel-btn.prev {
@@ -270,17 +387,22 @@ onUnmounted(() => {
   }
 
   .carousel-dots {
-    bottom: 15px;
-    gap: 8px;
+    bottom: 20px;
+    gap: 10px;
+    padding: 10px 16px;
   }
 
   .dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
 
   .dot.active {
-    width: 24px;
+    width: 28px;
+  }
+
+  .image-wrapper {
+    max-height: 70vh;
   }
 }
 </style>

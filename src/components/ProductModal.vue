@@ -56,7 +56,7 @@
 
             <div class="product-description">
               <span class="label">Description:</span>
-              <p>{{ product.description }}</p>
+              <p v-html="product.description"></p>
             </div>
 
             <div class="product-pattern">
